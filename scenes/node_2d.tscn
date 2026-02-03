@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://demwmuo1pgav4" path="res://scripts/game_manager.gd" id="4_fws66"]
 [ext_resource type="Texture2D" uid="uid://yp2sx31urdkl" path="res://images/Ball.png" id="5_04qyp"]
 [ext_resource type="Script" uid="uid://dn6htwggkx28u" path="res://scenes/ball.gd" id="7_hh0fu"]
+[ext_resource type="Texture2D" uid="uid://bua0qxnxquhxg" path="res://images/trail.png" id="8_3m5ht"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rnjyy"]
 size = Vector2(34, 128)
@@ -29,6 +30,7 @@ normal = Vector2(0, 1)
 [node name="PaddlePlayer" type="RigidBody2D" parent="." unique_id=1251465775 groups=["Paddles"]]
 position = Vector2(52, 306)
 gravity_scale = 0.0
+lock_rotation = true
 freeze = true
 script = ExtResource("2_4dvvg")
 
@@ -44,6 +46,7 @@ shape = SubResource("RectangleShape2D_rnjyy")
 [node name="AI" type="RigidBody2D" parent="." unique_id=978352973 groups=["Paddles"]]
 position = Vector2(1100, 306)
 gravity_scale = 0.0
+lock_rotation = true
 freeze = true
 script = ExtResource("3_j7wrs")
 
@@ -63,23 +66,23 @@ script = ExtResource("4_fws66")
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1947149777]
 z_index = -3
 texture_filter = 1
-offset_left = -891.0
-offset_top = -477.0
-offset_right = 1847.0
-offset_bottom = 1101.0
+offset_left = -2219.0
+offset_top = -1328.0
+offset_right = 3200.0
+offset_bottom = 1827.0
 texture = ExtResource("3_rnjyy")
 stretch_mode = 1
 script = ExtResource("4_4vge2")
-parallax = 1.0
 
 [node name="Ball" type="RigidBody2D" parent="." unique_id=926267366]
 position = Vector2(576, 324)
 physics_material_override = SubResource("PhysicsMaterial_04qyp")
 gravity_scale = 0.0
 inertia = 15.35
+lock_rotation = true
 contact_monitor = true
 max_contacts_reported = 5
-linear_velocity = Vector2(-200, 0)
+linear_velocity = Vector2(-200, -200)
 linear_damp_mode = 1
 script = ExtResource("7_hh0fu")
 
@@ -90,6 +93,16 @@ shape = SubResource("CircleShape2D_rnjyy")
 scale = Vector2(0.195, 0.195)
 texture = ExtResource("5_04qyp")
 
+[node name="Pivot" type="Node2D" parent="Ball" unique_id=1238701994]
+rotation = 2.3561945
+
+[node name="Trail" type="Sprite2D" parent="Ball/Pivot" unique_id=1921596273]
+z_index = -1
+texture_filter = 1
+position = Vector2(-1, 1.0000305)
+scale = Vector2(0.545, 0.55)
+texture = ExtResource("8_3m5ht")
+
 [node name="Border" type="StaticBody2D" parent="." unique_id=1826810240]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Border" unique_id=887531025]
@@ -98,5 +111,8 @@ shape = SubResource("WorldBoundaryShape2D_04qyp")
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Border" unique_id=913691812]
 position = Vector2(1152, 648)
 shape = SubResource("WorldBoundaryShape2D_fws66")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=902305440]
+position = Vector2(576, 324)
 
 [connection signal="body_entered" from="Ball" to="Ball" method="_on_body_entered"]
