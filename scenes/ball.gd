@@ -10,4 +10,5 @@ func _process(_delta: float) -> void:
 	pivot.rotation_degrees += ((rad_to_deg(atan2(linear_velocity.y, linear_velocity.x)) + 90) - pivot.rotation_degrees) / 5
 
 func _on_body_entered(_body: Node) -> void:
-	pass
+	if _body in get_tree().get_nodes_in_group("Paddles"):
+		linear_velocity.y += _body.velocity 

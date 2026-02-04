@@ -11,5 +11,5 @@ func _ready() -> void:
 	normal = position
 
 func _process(_delta: float) -> void:
-	parallaxed = Vector2((ball.position.x / 576) / parallax, (ball.position.y / 324) / parallax)
+	parallaxed = Vector2(((ball.position.x / 576) + 1) / parallax, (ball.position.y / 324) / parallax)
 	position = Vector2(normal.x * parallaxed.x, normal.y * parallaxed.y)
